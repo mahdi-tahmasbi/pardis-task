@@ -10,11 +10,10 @@ const Board = () => {
   const columns = useBoardStore((state) => state.columns);
   const isModalOpen = useBoardStore((state) => state.isModalOpen);
 
-  const handleDragEnd = (event) => {
+  const handleDragEnd = (event: any) => {
     const { active, over } = event;
 
     if (over) {
-      // Move the task to the new column
       const sourceColumnId = active.data.current.columnId;
       const targetColumnId = over.id;
       if (sourceColumnId !== targetColumnId) {
@@ -28,7 +27,7 @@ const Board = () => {
   return (
     <DndContext onDragEnd={handleDragEnd}>
       <TaskForm />
-      <div style={{ display: "flex" }}>
+      <div className="flex justify-center">
         {columns.map((column) => (
           <Column key={column.id} id={column.id} title={column.title} />
         ))}

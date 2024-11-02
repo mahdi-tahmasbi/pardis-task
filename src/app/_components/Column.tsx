@@ -3,11 +3,7 @@ import React from "react";
 import { useDroppable } from "@dnd-kit/core";
 import { useBoardStore } from "@/store";
 import Draggable from "./Draggable";
-
-interface ColumnProps {
-  id: string;
-  title: string;
-}
+import { ColumnProps } from "@/types";
 
 const Column = ({ id, title }: ColumnProps) => {
   const columns = useBoardStore((state) => state.columns);
@@ -16,17 +12,8 @@ const Column = ({ id, title }: ColumnProps) => {
   const column = columns.find((col) => col.id === id);
 
   return (
-    <div
-      ref={setNodeRef}
-      style={{
-        width: "300px",
-        margin: "1rem",
-        padding: "1rem",
-        background: "#f0f0f0",
-        borderRadius: "8px",
-      }}
-    >
-      <h3>{title}</h3>
+    <div ref={setNodeRef} className="w-[20%] m-5">
+      <h2 className="font-bold text-3xl">{title}</h2>
       {column?.tasks.map((task) => (
         <Draggable
           key={task.id}

@@ -28,9 +28,9 @@ const getInitialColumns = (): Column[] => {
   return savedColumns
     ? JSON.parse(savedColumns)
     : [
-        { id: "todo", title: "To Do", tasks: [] },
-        { id: "doing", title: "Doing", tasks: [] },
-        { id: "done", title: "Done", tasks: [] },
+        { id: "todo", title: "🎯 To Do", tasks: [] },
+        { id: "doing", title: "🌟 Doing", tasks: [] },
+        { id: "done", title: "✅ Done", tasks: [] },
       ];
 };
 

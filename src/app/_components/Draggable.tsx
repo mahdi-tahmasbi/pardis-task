@@ -13,7 +13,7 @@ interface TaskProps {
 const Draggable = ({ id, content, tags, columnId }: TaskProps) => {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id,
-    data: { columnId }, // Include the columnId in the draggable data
+    data: { columnId },
   });
   const openModal = useBoardStore((state) => state.openModal);
 
@@ -21,45 +21,35 @@ const Draggable = ({ id, content, tags, columnId }: TaskProps) => {
     transform: transform
       ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
       : "none",
-    padding: "0.5rem",
+    padding: "1rem",
     margin: "0.5rem 0",
-    backgroundColor: "lightblue",
-    borderRadius: "4px",
+    borderRadius: "12px",
     cursor: "grab",
-    textAlign: "center",
+    border: "2px solid gray",
+    textAlign: "start",
   };
 
   return (
     <div ref={setNodeRef} style={style} {...listeners} {...attributes}>
-      <div>{content}</div>
-      <div style={{ fontSize: "0.8rem", color: "gray" }}>
-        {tags.map((tag) => (
-          <span
-            key={tag}
-            style={{
-              marginRight: "4px",
-              padding: "2px 4px",
-              backgroundColor: "#eee",
-              borderRadius: "4px",
-            }}
-          >
-            {tag}
-          </span>
-        ))}
+      <h2 className="font-bold text-2xl">{content}</h2>
+      <div className="flex justify-between mt-5">
+        <div>
+          {tags.map((tag) => (
+            <span
+              key={tag}
+              style={{
+                marginRight: "4px",
+                padding: "2px 4px",
+                backgroundColor: "#eee",
+                borderRadius: "4px",
+              }}
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+        <button onClick={() => openModal(id)}>🗑️</button>
       </div>
-      <button
-        onClick={() => openModal(id)}
-        style={{
-          marginTop: "0.5rem",
-          color: "white",
-          backgroundColor: "red",
-          border: "none",
-          borderRadius: "4px",
-          padding: "4px 8px",
-        }}
-      >
-        Delete
-      </button>
     </div>
   );
 };

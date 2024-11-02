@@ -42,10 +42,20 @@ const Modal = () => {
       >
         <h2>Confirm Deletion</h2>
         <p>Are you sure you want to delete this task?</p>
-        <button onClick={handleDelete} style={{ marginRight: "1rem" }}>
-          Yes
-        </button>
-        <button onClick={closeModal}>No</button>
+        <div className="flex w-full justify-around mt-3 gap-3">
+          <button
+            onClick={handleDelete}
+            className="bg-blue-400 text-white rounded-md py-3 hover:opacity-50 duration-200 active:opacity-100 w-full"
+          >
+            Yes
+          </button>
+          <button
+            onClick={closeModal}
+            className="bg-red-400 text-white rounded-md w-full hover:opacity-50 duration-200 active:opacity-100"
+          >
+            No
+          </button>
+        </div>
       </div>
     </div>
   );

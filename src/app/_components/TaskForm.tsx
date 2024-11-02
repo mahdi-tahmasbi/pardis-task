@@ -1,8 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { useBoardStore } from "@/store";
-
-const tagsOptions = ["TypeScript", "React", "Next.js", "Zustand", "JavaScript"];
+import { tagsOptions } from "@/constants";
 
 const TaskForm = () => {
   const addTask = useBoardStore((state) => state.addTask);
@@ -10,7 +9,7 @@ const TaskForm = () => {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [selectedColumnId, setSelectedColumnId] = useState("todo");
 
-  const handleTagChange = (tag: string) => {
+  const handleTagClick = (tag: string) => {
     setSelectedTags((prev) =>
       prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
     );
@@ -26,39 +25,52 @@ const TaskForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ marginBottom: "1rem" }}>
+    <form
+      onSubmit={handleSubmit}
+      className="flex justify-center flex-col items-center"
+    >
       <input
         type="text"
         value={taskContent}
         onChange={(e) => setTaskContent(e.target.value)}
-        placeholder="Task content"
+        placeholder="Enter your Task"
         required
-        style={{ marginRight: "0.5rem" }}
+        className="w-[50%] px-2 py-2 border-gray-300 border-2 rounded-md "
       />
-      <select
-        value={selectedColumnId}
-        onChange={(e) => setSelectedColumnId(e.target.value)}
-        style={{ marginRight: "0.5rem" }}
-      >
-        <option value="todo">To Do</option>
-        <option value="doing">Doing</option>
-        <option value="done">Done</option>
-      </select>
-      <div>
-        {tagsOptions.map((tag) => (
-          <label key={tag} style={{ marginRight: "0.5rem" }}>
-            <input
-              type="checkbox"
-              checked={selectedTags.includes(tag)}
-              onChange={() => handleTagChange(tag)}
-            />
-            {tag}
-          </label>
-        ))}
+      <div className="flex justify-between w-[50%] items-center">
+        <div className="flex flex-wrap gap-2 my-2">
+          {tagsOptions.map((tag) => (
+            <span
+              key={tag}
+              onClick={() => handleTagClick(tag)}
+              className={`cursor-pointer px-2 py-1 border rounded-md transition-colors ${
+                selectedTags.includes(tag)
+                  ? "bg-blue-500 text-white"
+                  : "bg-gray-200 text-black"
+              }`}
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+        <div>
+          <select
+            value={selectedColumnId}
+            className="border-black border-2 px-5 py-2 rounded-md cursor-pointer"
+            onChange={(e) => setSelectedColumnId(e.target.value)}
+          >
+            <option value="todo">To Do</option>
+            <option value="doing">Doing</option>
+            <option value="done">Done</option>
+          </select>
+          <button
+            type="submit"
+            className="ml-2 bg-purple-600 text-white px-5 py-2 rounded-md hover:opacity-50 duration-200 active:opacity-100"
+          >
+            + Add Task
+          </button>
+        </div>
       </div>
-      <button type="submit" style={{ marginTop: "0.5rem" }}>
-        Add Task
-      </button>
     </form>
   );
 };
